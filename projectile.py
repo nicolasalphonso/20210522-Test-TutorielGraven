@@ -8,10 +8,28 @@ class Projectile(pygame.sprite.Sprite):
     # definition du constructeur de cette classe
     def __init__(self, player):
         super().__init__()
-        self.velocity = 5
+        self.velocity = 1
         self.image = pygame.image.load("assets/projectile.png")
         # reduire l'image du projectile
         self.image = pygame.transform.scale(self.image, (50, 50))
         self.rect = self.image.get_rect()
-        self.rect.x = player.rect.x + player.rect.width - 15
+        self.rect.x = player.rect.x + player.rect.width - 30
         self.rect.y = player.rect.y + 60
+        self.player = player
+        self.origin_image = self.image
+        self.angle = 0
+
+    def rotate(self):
+        # tourner le projectile
+        self.angle += 6
+        self.image = pygame.transform.rotozoom(self.origin_image, self.angle, 1.2)
+        self.rect = self.image.get_rect(center = self.rect.center)
+
+
+    def move(self):
+        self.rect.x += self.velocity
+        self.rotate()
+
+        # detruire le projectile s'il sort de la fenetre
+        if self.rect.x > 1080:
+            self.player.all_projectiles.remove(self)

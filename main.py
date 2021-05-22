@@ -24,7 +24,11 @@ while loop:  # Boucle d'événements
 	# appliquer image de mon joueur
 	ecran.blit(game.player.image, game.player.rect)
 
-	#appliquer l'ensemble des images de mon groupe de prejectiles
+	# recuperation de l'ensemble des projectiles
+	for projectile in game.player.all_projectiles:
+		projectile.move()
+
+	#appliquer l'ensemble des images de mon groupe de projectiles
 	game.player.all_projectiles.draw(ecran)
 
 	# vérifier si joueur souhaite aller à gaucher ou à droite

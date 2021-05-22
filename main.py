@@ -26,10 +26,27 @@ while loop:  # Boucle d'événements
 	# appliquer image de mon joueur
 	ecran.blit(game.player.image, game.player.rect)
 
+	# vérifier si joueur souhaite aller à gaucher ou à droite
+	if game.pressed.get(pygame.K_RIGHT):
+		game.player.move_right()
+	elif game.pressed.get(pygame.K_LEFT):
+		game.player.move_left()
+
 	pygame.display.flip()  # L'affichage devient effectif - l'ecran est mis à jour.
 
-    # si le joueur ferme la fenêtre
+    # si le joueur ferme la fenetre
 	for event in pygame.event.get():  # parcours de la liste des événements
+
+		# detection de la fermeteure de la fenetre
 		if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):  # interrompt la boucle si nécessaire
 			loop = False
+
+		# detecter si l'utilisateur enfonce une touche
+		elif event.type == pygame.KEYDOWN:
+			game.pressed[event.key] = True
+		elif event.type == pygame.KEYUP:
+			game.pressed[event.key] = False
+
+
+
 pygame.quit()

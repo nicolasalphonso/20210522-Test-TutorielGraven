@@ -21,10 +21,11 @@ while loop:  # Boucle d'événements
 	# appliquer l'arrière plan de notre jeu
 	ecran.blit(background, (0, -200))  # Colle l'image en haut à gauche de la fenêtre de tracé (ici, l'ecran)
 
-
-
 	# appliquer image de mon joueur
 	ecran.blit(game.player.image, game.player.rect)
+
+	#appliquer l'ensemble des images de mon groupe de prejectiles
+	game.player.all_projectiles.draw(ecran)
 
 	# vérifier si joueur souhaite aller à gaucher ou à droite
 	if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x + game.player.rect.width < ecran.get_width():
@@ -46,6 +47,11 @@ while loop:  # Boucle d'événements
 		# detecter si l'utilisateur enfonce une touche
 		elif event.type == pygame.KEYDOWN:
 			game.pressed[event.key] = True
+
+			# detecter si c'est la touche espace
+			if event.key == pygame.K_SPACE:
+				game.player.launch_projectile()
+
 		elif event.type == pygame.KEYUP:
 			game.pressed[event.key] = False
 

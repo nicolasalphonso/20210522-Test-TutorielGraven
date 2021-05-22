@@ -28,8 +28,19 @@ while loop:  # Boucle d'événements
 	for projectile in game.player.all_projectiles:
 		projectile.move()
 
-	#appliquer l'ensemble des images de mon groupe de projectiles
+	# recuperation de l'ensemble des monstres
+	for monster in game.all_monsters:
+		monster.move_forward()
+
+	# appliquer l'ensemble des images de mon groupe de projectiles
 	game.player.all_projectiles.draw(ecran)
+
+	# appliquer l'ensemble des images de mon groupe de monstres
+	game.all_monsters.draw(ecran)
+
+	# appliquer l'ensemble des images de mon groupe de monstres
+	game.all_monsters.draw(ecran)
+
 
 	# vérifier si joueur souhaite aller à gaucher ou à droite
 	if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x + game.player.rect.width < ecran.get_width():

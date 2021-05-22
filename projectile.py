@@ -25,11 +25,20 @@ class Projectile(pygame.sprite.Sprite):
         self.image = pygame.transform.rotozoom(self.origin_image, self.angle, 1.2)
         self.rect = self.image.get_rect(center = self.rect.center)
 
+    def remove(self):
+        self.player.all_projectiles.remove(self)
 
     def move(self):
         self.rect.x += self.velocity
         self.rotate()
 
+        # si rentre en collision avec un monstre
+        if self.player.game.check_collision(self, self.player.game.all_monsters):
+            self.remove()
+
+
         # detruire le projectile s'il sort de la fenetre
         if self.rect.x > 1080:
-            self.player.all_projectiles.remove(self)
+            self.remove()
+
+

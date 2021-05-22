@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import pygame
 from pygame.locals import *
+
+from game import Game
+
 pygame.display.init()
 
 # generer la fenetre de notre jeu
@@ -10,10 +13,19 @@ ecran = pygame.display.set_mode((1080, 720))  # Crée la fenêtre de tracé
 # charger le background
 background = pygame.image.load("assets/bg.jpg")  # charge une image à partir d'un fichier
 
+#chargement le jeu
+game = Game()
+
 loop = True
 while loop:  # Boucle d'événements
 	# appliquer l'arrière plan de notre jeu
 	ecran.blit(background, (0, -200))  # Colle l'image en haut à gauche de la fenêtre de tracé (ici, l'ecran)
+
+
+
+	# appliquer image de mon joueur
+	ecran.blit(game.player.image, game.player.rect)
+
 	pygame.display.flip()  # L'affichage devient effectif - l'ecran est mis à jour.
 
     # si le joueur ferme la fenêtre
